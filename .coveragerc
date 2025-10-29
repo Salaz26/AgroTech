@@ -1,0 +1,5 @@
+[run]
+omit =
+    src/send_fake_data.py
+    venv/*
+    tests/*

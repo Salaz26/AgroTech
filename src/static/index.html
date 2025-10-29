@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AGROTECH</title>
+    <style>
+        /* Importamos una fuente más moderna */
+        @import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap');
+
+        /* --- Paleta de Colores "Agro-Verde" --- */
+        :root {
+            --color-fondo-pagina: #F7F9F7;
+            --color-fondo-contenido: #FFFFFF;
+            --color-verde-oscuro: #1E4620;
+            --color-verde-medio: #4CAF50;
+            --color-verde-hover: #45a049;
+            --color-verde-claro: #E8F5E9;
+            --color-borde: #C8E6C9;
+            --color-texto-principal: #333333;
+        }
+
+        /* --- Estilos Generales --- */
+        body {
+            font-family: 'Lato', sans-serif;
+            margin: 0;
+            background: var(--color-fondo-pagina);
+            color: var(--color-texto-principal);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 20px;
+            background: var(--color-fondo-contenido);
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        h1 {
+            color: var(--color-verde-oscuro);
+            border-bottom: 2px solid var(--color-borde);
+            padding-bottom: 10px;
+        }
+        
+        h2 {
+            color: var(--color-verde-oscuro);
+        }
+
+        /* --- Estilos de Pestañas --- */
+        .tabs {
+            display: flex;
+            border-bottom: 2px solid var(--color-verde-medio);
+        }
+
+        .tab-button {
+            padding: 12px 20px;
+            cursor: pointer;
+            background: var(--color-verde-claro);
+            border: 1px solid var(--color-borde);
+            border-bottom: none;
+            margin-right: 5px;
+            border-radius: 8px 8px 0 0;
+            font-weight: 700;
+            color: var(--color-verde-medio);
+            transition: all 0.2s ease-in-out;
+        }
+
+        .tab-button.active {
+            background: var(--color-fondo-contenido);
+            border-bottom: 2px solid var(--color-fondo-contenido);
+            position: relative;
+            top: 2px;
+            color: var(--color-verde-oscuro);
+        }
+        
+        .tab-button:not(.active):hover {
+            background: #DDF0DD;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 25px;
+            background: var(--color-fondo-contenido);
+            border: 1px solid var(--color-borde);
+            border-top: none;
+            border-radius: 0 0 8px 8px;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+        
+        /* --- Estilos de Botón --- */
+        button {
+            background-color: var(--color-verde-medio);
+            color: white;
+            padding: 10px 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 700;
+            transition: background-color 0.2s ease-in-out;
+        }
+
+        button:hover {
+            background-color: var(--color-verde-hover);
+        }
+        
+        /* --- Estilos de Tablas --- */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid var(--color-borde);
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--color-verde-claro);
+            color: var(--color-verde-oscuro);
+            font-weight: 700;
+        }
+
+        tr:nth-child(even) {
+            background-color: var(--color-fondo-pagina);
+        }
+        
+        tr[style="background:#eee;"] {
+            background-color: var(--color-verde-claro) !important;
+            height: 4px;
+        }
+        tr[style="background:#eee;"] td {
+            padding: 0;
+            border: none;
+        }
+
+        /* --- Estilos para la Tabla de Alertas --- */
+        #alert-table-body .level-URGENTE {
+            background-color: #FFCDD2; /* Rojo pálido */
+            color: #C62828;
+            font-weight: 700;
+        }
+        #alert-table-body .level-ALERTA {
+            background-color: #FFF9C4; /* Amarillo pálido */
+            color: #795548;
+            font-weight: 700;
+        }
+        #alert-table-body .level-PELIGRO {
+            background-color: #FFAB91; /* Naranja pálido */
+            color: #D84315;
+            font-weight: 700;
+        }
+
+
+        /* --- Estilos Pestaña 2 (Resumen IA) --- */
+        #advice-content {
+            margin-top: 20px;
+            padding: 20px;
+            background: var(--color-verde-claro);
+            border: 1px solid var(--color-borde);
+            border-left: 5px solid var(--color-verde-medio);
+            border-radius: 5px;
+        }
+
+        #advice-content h3 {
+            margin-top: 0;
+            color: var(--color-verde-oscuro);
+        }
+        
+        #advice-content strong {
+            color: var(--color-verde-medio);
+            font-size: 1.1em;
+        }
+
+        /* --- Estilos Pestaña 3 (Usuario) --- */
+        #user-info-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        #user-info-list li {
+            font-size: 1.1em;
+            margin-bottom: 12px;
+            border-bottom: 1px dashed var(--color-borde);
+            padding-bottom: 12px;
+        }
+
+        #user-info-list strong {
+            color: var(--color-verde-oscuro);
+            min-width: 100px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Dashboard de Sensores AgroTech</h1>
+
+        <div class="tabs">
+            <div class="tab-button active" onclick="openTab(event, 'Datos')">Datos en Vivo</div>
+            <div class="tab-button" onclick="openTab(event, 'Resumen')">Resumen IA</div>
+            <div class="tab-button" onclick="openTab(event, 'Alertas')">Registros de Alertas</div>
+            <div class="tab-button" onclick="openTab(event, 'Usuario')">Perfil de Usuario</div>
+        </div>
+
+        <div id="Datos" class="tab-content active">
+            <h2>Datos de Sensores</h2>
+            <button onclick="fetchSensorData()">Actualizar Datos</button>
+            <table id="sensor-table">
+                <thead>
+                    <tr>
+                        <th>Timestamp</th>
+                        <th>Sensor</th>
+                        <th>Valor</th>
+                        <th>Unidad</th>
+                    </tr>
+                </thead>
+                <tbody id="sensor-table-body">
+                    </tbody>
+            </table>
+        </div>
+
+        <div id="Resumen" class="tab-content">
+            <h2>Resumen y Consejos del Cultivo</h2>
+            <button onclick="fetchAiAdvice()">Obtener Consejo Actual</button>
+            <div id="advice-content">
+                <p>Haz clic en el botón para obtener un resumen...</p>
+            </div>
+        </div>
+
+        <div id="Alertas" class="tab-content">
+            <h2>Registro Histórico de Alertas</h2>
+            <button onclick="fetchAlertLog()">Actualizar Registro</button>
+            <table id="alert-table">
+                <thead>
+                    <tr>
+                        <th>Timestamp</th>
+                        <th>Nivel</th>
+                        <th>Resumen</th>
+                        <th>Recomendación</th>
+                    </tr>
+                </thead>
+                <tbody id="alert-table-body">
+                    </tbody>
+            </table>
+        </div>
+
+        <div id="Usuario" class="tab-content">
+            <h2>Información del Usuario</h2>
+            <ul id="user-info-list">
+                </ul>
+        </div>
+    </div>
+
+    <script>
+        // --- Lógica de JavaScript ---
+        
+        const API_BASE_URL = 'http://127.0.0.1:8000';
+
+        // --- Lógica de Pestañas ---
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tab-button");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+
+        // --- Lógica de Pestaña 1: Datos de Sensores ---
+        async function fetchSensorData() {
+            const tableBody = document.getElementById('sensor-table-body');
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/sensors/`);
+                if (!response.ok) throw new Error('Error en la respuesta de la red');
+                const data = await response.json();
+                
+                tableBody.innerHTML = ''; // Limpiar tabla
+
+                if (data.length === 0) {
+                    tableBody.innerHTML = '<tr><td colspan="4">Aún no se han recibido datos...</td></tr>';
+                    return;
+                }
+
+                // Procesar cada lectura
+                data.forEach(reading => {
+                    const timestamp = new Date(reading.timestamp).toLocaleString();
+                    
+                    // Fila 1: Temperatura
+                    tableBody.innerHTML += `
+                        <tr>
+                            <td>${timestamp}</td>
+                            <td>Temperatura (DHT22)</td>
+                            <td>${reading.temperature.toFixed(2)}</td>
+                            <td>°C</td>
+                        </tr>
+                    `;
+                    // Fila 2: Humedad Aire
+                    tableBody.innerHTML += `
+                        <tr>
+                            <td>${timestamp}</td>
+                            <td>Humedad Aire (DHT22)</td>
+                            <td>${reading.humidity.toFixed(2)}</td>
+                            <td>%</td>
+                        </tr>
+                    `;
+                    // Fila 3: Humedad Suelo
+                    tableBody.innerHTML += `
+                        <tr>
+                            <td>${timestamp}</td>
+                            <td>Humedad Suelo (Higrómetro)</td>
+                            <td>${reading.soil_moisture}</td>
+                            <td>(0-4095 raw)</td>
+                        </tr>
+                    `;
+                    // Fila 4: Nivel de Gas
+                    tableBody.innerHTML += `
+                        <tr>
+                            <td>${timestamp}</td>
+                            <td>Nivel de Gas (MQ-9)</td>
+                            <td>${reading.gas_level}</td>
+                            <td>(0-4095 raw)</td>
+                        </tr>
+                    `;
+                    // Fila 5: Campo Magnético
+                    tableBody.innerHTML += `
+                        <tr>
+                            <td>${timestamp}</td>
+                            <td>Campo Magnético (Hall)</td>
+                            <td>${reading.magnetic_field ? 'Detectado' : 'No Detectado'}</td>
+                            <td>(bool)</td>
+                        </tr>
+                    `;
+                    
+                    // 👇 --- ¡NUEVA FILA AÑADIDA! ---
+                    // Fila 6: Nivel UV
+                    tableBody.innerHTML += `
+                        <tr>
+                            <td>${timestamp}</td>
+                            <td>Nivel UV</td>
+                            <td>${reading.uv_level}</td>
+                            <td>(0-4095 raw)</td>
+                        </tr>
+                    `;
+                    // 👆 --- FIN DE LA NUEVA FILA ---
+
+                    // Fila separadora
+                    tableBody.innerHTML += `<tr style="background:#eee;"><td colspan="4"></td></tr>`;
+                });
+            } catch (error) {
+                console.error('Error al cargar datos de sensores:', error);
+                tableBody.innerHTML = `<tr><td colspan="4">Error al cargar datos. ¿Está el backend corriendo?</td></tr>`;
+            }
+        }
+
+        // --- Lógica de Pestaña 2: Resumen IA ---
+        async function fetchAiAdvice() {
+            const adviceDiv = document.getElementById('advice-content');
+            adviceDiv.innerHTML = '<p>Obteniendo consejo...</p>';
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/advice/`);
+                if (!response.ok) {
+                    const err = await response.json();
+                    throw new Error(err.detail || 'Error en la respuesta');
+                }
+                const data = await response.json();
+                adviceDiv.innerHTML = `
+                    <h3>Resumen del Cultivo:</h3>
+                    <p>${data.summary}</p>
+                    <h3>Acción Recomendada:</h3>
+                    <p><strong>${data.recommendation}</strong></p>
+                `;
+            } catch (error) {
+                console.error('Error al cargar consejo:', error);
+                adviceDiv.innerHTML = `<p style="color:red;">Error: ${error.message}</p>`;
+            }
+        }
+
+        // --- Lógica de Pestaña 3: Alertas ---
+        async function fetchAlertLog() {
+            const tableBody = document.getElementById('alert-table-body');
+            tableBody.innerHTML = '<tr><td colspan="4">Cargando registro...</td></tr>';
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/alerts/`);
+                if (!response.ok) throw new Error('Error en la respuesta de la red');
+                const data = await response.json();
+                
+                tableBody.innerHTML = ''; // Limpiar tabla
+
+                if (data.length === 0) {
+                    tableBody.innerHTML = '<tr><td colspan="4">No hay alertas registradas.</td></tr>';
+                    return;
+                }
+
+                data.forEach(alert => {
+                    const timestamp = new Date(alert.timestamp).toLocaleString();
+                    // Usamos una clase CSS para dar color al nivel
+                    tableBody.innerHTML += `
+                        <tr>
+                            <td>${timestamp}</td>
+                            <td class="level-${alert.level}">${alert.level}</td>
+                            <td>${alert.summary}</td>
+                            <td>${alert.recommendation}</td>
+                        </tr>
+                    `;
+                });
+            } catch (error) {
+                console.error('Error al cargar registro de alertas:', error);
+                tableBody.innerHTML = `<tr><td colspan="4">Error al cargar el registro.</td></tr>`;
+            }
+        }
+
+        // --- Lógica de Pestaña 4: Usuario ---
+        async function fetchUserInfo() {
+            const userList = document.getElementById('user-info-list');
+            try {
+                const response = await fetch(`${API_BASE_URL}/api/user/`);
+                if (!response.ok) throw new Error('Error en la respuesta de la red');
+                const user = await response.json();
+                
+                userList.innerHTML = `
+                    <li><strong>Nombre:</strong> ${user.first_name}</li>
+                    <li><strong>Apellido:</strong> ${user.last_name}</li>
+                    <li><strong>Edad:</strong> ${user.age}</li>
+                    <li><strong>Email:</strong> ${user.email}</li>
+                `;
+            } catch (error) {
+                console.error('Error al cargar datos de usuario:', error);
+                userList.innerHTML = '<li>Error al cargar datos del usuario.</li>';
+            }
+        }
+
+        // --- Cargar datos iniciales al abrir la página ---
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchSensorData();
+            fetchUserInfo();
+            fetchAlertLog(); 
+        });
+    </script>
+</body>
+</html>
