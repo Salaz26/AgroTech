@@ -1,5 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 from typing import List
 import sys, os
 
@@ -25,6 +27,12 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Ruta para servir el HTML principal
+@app.get("/")
+def read_root():
+    html_path = os.path.join(BASE_DIR, "index.html")
+    return FileResponse(html_path)
 
 @app.get("/api/sensors/", response_model=List[SensorData])
 def read_sensors():
