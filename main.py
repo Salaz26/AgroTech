@@ -1,14 +1,23 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from typing import List
-from src.db import get_sensors, get_user, get_alerts
-from src.models.alert import Alert
-from src.models.sensor_data import SensorData
-from src.models.user_data import User
+import sys, os
+
+# Asegura que la carpeta src esté en el path
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+SRC_PATH = os.path.join(BASE_DIR, "src")
+if SRC_PATH not in sys.path:
+    sys.path.append(SRC_PATH)
+
+# Importar desde src/
+from db import get_sensors, get_user, get_alerts
+from models.alert import Alert
+from models.sensor_data import SensorData
+from models.user_data import User
 
 app = FastAPI()
 
-# Agregar CORS para que el frontend pueda conectarse
+# Middleware CORS
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -29,7 +38,6 @@ def read_user():
 def read_alerts():
     return get_alerts()
 
-# Ruta temporal para /api/advice/ (puedes mejorarla después)
 @app.get("/api/advice/")
 def get_advice():
     return {
