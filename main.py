@@ -33,6 +33,7 @@ def read_root():
     try:
         # Intentar encontrar index.html en varios lugares
         possible_paths = [
+            os.path.join(BASE_DIR, "static", "index.html"),
             os.path.join(BASE_DIR, "index.html"),
             os.path.join(BASE_DIR, "..", "index.html"),
             "index.html"
